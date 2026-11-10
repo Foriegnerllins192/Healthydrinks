@@ -1,10 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { Pool } from 'pg';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -56,6 +61,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cart', authenticate, cartRoutes);
 app.use('/api/orders', authenticate, orderRoutes);
 app.use('/api/admin', authenticate, isAdmin, adminRoutes);
+
+// Serve frontend build (for production / Render Web Service)
+const distPath = path.join(__dirname, '..', 'dist');
+app.use(express.static(distPath));
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
 
 // Start server
 app.listen(port, () => {
