@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-green: #174D32;
+  --color-fresh-green: #38A852;
+  --color-orange: #FF8C24;
+  --color-light-orange: #FFF0DF;
+  --color-cream: #FFFDF6;
+  --color-dark-text: #202820;
+  --color-white: #FFFFFF;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-orange hover:bg-light-orange text-white font-medium py-3 px-6 rounded-full transition-colors;
+  }
+  .btn-secondary {
+    @apply bg-fresh-green hover:bg-deep-green text-white font-medium py-3 px-6 rounded-full transition-colors border-2 border-fresh-green hover:border-deep-green;
+  }
+  .nav-link {
+    @apply text-dark-text hover:text-fresh-green transition-colors;
+  }
+  .mobile-menu-item {
+    @apply block py-3 px-6 text-dark-text hover:bg-cream transition-colors;
+  }
+  .footer-link {
+    @apply text-white hover:text-fresh-green transition-colors;
+  }
+  .product-card {
+    @apply bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow;
+  }
+}
